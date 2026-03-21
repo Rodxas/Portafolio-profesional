@@ -1,0 +1,75 @@
+<div class="demo-container">
+  <h1>✨ Directives en Angular</h1>
+  <p class="subtitle">Las directivas manipulan el DOM y controlan la estructura del template</p>
+  
+  <!-- *ngFor -->
+  <section class="demo-section">
+    <h2>1. *ngFor - Renderizar listas</h2>
+    <p>Iterando sobre un array de frutas:</p>
+    <ul class="lista-frutas">
+      @for (fruta of frutas; track fruta) {
+        <li class="fruta-item">{{ fruta }}</li>
+      }
+    </ul>
+    <p class="tip">💡 Tip: Ver el README.md para ver el código de ejemplo</p>
+  </section>
+  
+  <!-- *ngIf -->
+  <section class="demo-section">
+    <h2>2. *ngIf - Condicionales</h2>
+    <button class="btn btn-primary" (click)="toggleLogin()">
+      {{ isLoggedIn ? 'Cerrar Sesión' : 'Iniciar Sesión' }}
+    </button>
+    
+    <div class="auth-status">
+      @if (isLoggedIn) {
+        <div class="success">
+          ✅ Usuario autenticado | Rol: <strong>{{ userRole }}</strong>
+        </div>
+      } @else {
+        <div class="warning">
+          🔒 Por favor, inicia sesión para continuar
+        </div>
+      }
+    </div>
+  </section>
+  
+  <!-- *ngSwitch -->
+  <section class="demo-section">
+    <h2>3. *ngSwitch - Múltiples casos</h2>
+    <div class="switch-buttons">
+      <button class="btn" [class.active]="opcionActual === '1'" (click)="opcionActual = '1'">Opción 1</button>
+      <button class="btn" [class.active]="opcionActual === '2'" (click)="opcionActual = '2'">Opción 2</button>
+      <button class="btn" [class.active]="opcionActual === '3'" (click)="opcionActual = '3'">Opción 3</button>
+    </div>
+    
+    <div class="switch-result">
+      @switch (opcionActual) {
+        @case ('1') {
+          <p>📦 Contenido de la Opción 1</p>
+        }
+        @case ('2') {
+          <p>⚙️ Contenido de la Opción 2</p>
+        }
+        @case ('3') {
+          <p>🎯 Contenido de la Opción 3</p>
+        }
+      }
+    </div>
+  </section>
+  
+  <!-- Class Binding -->
+  <section class="demo-section">
+    <h2>4. [class] - Clases dinámicas</h2>
+    <div class="box" [class.highlighted]="isHighlighted" (click)="isHighlighted = !isHighlighted">
+      <p>Haz clic para {{ isHighlighted ? 'quitar' : 'agregar' }} el highlight</p>
+    </div>
+  </section>
+  
+  <!-- TrackBy -->
+  <section class="demo-section">
+    <h2>5. trackBy - Optimización de listas</h2>
+    <p>Usa trackBy para mejorar el rendimiento en listas grandes identificando elementos únicos.</p>
+    <p class="tip">💡 Tip: Ver el README.md para ver el código de ejemplo</p>
+  </section>
+</div>

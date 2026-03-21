@@ -1,0 +1,25 @@
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="nav-brand">
+    <span class="logo">⚡</span>
+    <span class="title">{{ title }}</span>
+  </div>
+  <div class="nav-links">
+    @for (link of navLinks; track link.path) {
+      <a [routerLink]="link.path" routerLinkActive="active" class="nav-link">
+        <span class="nav-icon">{{ link.icon }}</span>
+        {{ link.label }}
+      </a>
+    }
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="container">
+  <router-outlet />
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>Angular Demo | Rodney Polanco - Buscando Full Stack</p>
+</footer>

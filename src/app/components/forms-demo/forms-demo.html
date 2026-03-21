@@ -1,0 +1,159 @@
+<div class="demo-container">
+  <h1>📝 Forms en Angular</h1>
+  <p class="subtitle">Angular soporta dos tipos de formularios: Template-driven y Reactive</p>
+  
+  <!-- Template-driven Form -->
+  <section class="demo-section">
+    <h2>1. Template-driven (ngModel)</h2>
+    <p>Ideal para formularios simples. La lógica está en el template.</p>
+    
+    <form class="form-demo" (ngSubmit)="enviarContacto()">
+      <div class="form-group">
+        <label for="contact-nombre">Nombre:</label>
+        <input 
+          type="text" 
+          id="contact-nombre"
+          [(ngModel)]="contacto.nombre" 
+          name="nombre"
+          class="input"
+          placeholder="Tu nombre">
+      </div>
+      
+      <div class="form-group">
+        <label for="contact-email">Email:</label>
+        <input 
+          type="email" 
+          id="contact-email"
+          [(ngModel)]="contacto.email" 
+          name="email"
+          class="input"
+          placeholder="tu@email.com">
+      </div>
+      
+      <div class="form-group">
+        <label for="contact-mensaje">Mensaje:</label>
+        <textarea 
+          id="contact-mensaje"
+          [(ngModel)]="contacto.mensaje" 
+          name="mensaje"
+          class="input textarea"
+          rows="3"
+          placeholder="Tu mensaje..."></textarea>
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+    </form>
+    
+    @if (submittedContacts.length > 0) {
+      <div class="submitted-list">
+        <h4>Mensajes enviados ({{ submittedContacts.length }}):</h4>
+        @for (c of submittedContacts; track $index) {
+          <div class="submitted-item">
+            <strong>{{ c.nombre }}</strong> - {{ c.email }}
+          </div>
+        }
+      </div>
+    }
+  </section>
+  
+  <!-- Reactive Form -->
+  <section class="demo-section">
+    <h2>2. Reactive Forms (FormGroup)</h2>
+    <p>Ideal para formularios complejos. La lógica está en el componente (TypeScript).</p>
+    
+    <form [formGroup]="registroForm" (ngSubmit)="onSubmitReactive()" class="form-demo">
+      <div class="form-group">
+        <label for="reg-nombre">Nombre:</label>
+        <input 
+          type="text" 
+          id="reg-nombre"
+          formControlName="nombre"
+          class="input"
+          [class.error]="isInvalid('nombre')"
+          placeholder="Tu nombre">
+        @if (isInvalid('nombre')) {
+          <span class="error-message">{{ getError('nombre') }}</span>
+        }
+      </div>
+      
+      <div class="form-group">
+        <label for="reg-email">Email:</label>
+        <input 
+          type="email" 
+          id="reg-email"
+          formControlName="email"
+          class="input"
+          [class.error]="isInvalid('email')"
+          placeholder="ejemplo@ejemplo.com">
+        @if (isInvalid('email')) {
+          <span class="error-message">{{ getError('email') }}</span>
+        }
+      </div>
+      
+      <div class="form-group">
+        <label for="reg-password">Contraseña:</label>
+        <input 
+          type="password" 
+          id="reg-password"
+          formControlName="password"
+          class="input"
+          [class.error]="isInvalid('password')"
+          placeholder="Mínimo 8 caracteres">
+        @if (isInvalid('password')) {
+          <span class="error-message">{{ getError('password') }}</span>
+        }
+      </div>
+      
+      <div class="form-group">
+        <label for="reg-pais">País:</label>
+        <select 
+          id="reg-pais"
+          formControlName="pais"
+          class="input select">
+          <option value="">Selecciona un país</option>
+          @for (pais of paises; track pais) {
+            <option [value]="pais">{{ pais }}</option>
+          }
+        </select>
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Registrarse</button>
+    </form>
+  </section>
+  
+  <!-- Comparison -->
+  <section class="demo-section comparison">
+    <h2>📊 Comparación</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Característica</th>
+          <th>Template-driven</th>
+          <th>Reactive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Complejidad</td>
+          <td>Baja</td>
+          <td>Alta</td>
+        </tr>
+        <tr>
+          <td>Validación</td>
+          <td>En template</td>
+          <td>En TypeScript</td>
+        </tr>
+        <tr>
+          <td>Testing</td>
+          <td>Más difícil</td>
+          <td>Más fácil</td>
+        </tr>
+        <tr>
+          <td>Casos de uso</td>
+          <td>Forms simples</td>
+          <td>Forms dinámicos/complejos</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

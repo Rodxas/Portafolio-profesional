@@ -1,0 +1,69 @@
+<div class="demo-container">
+  <h1>⚙️ Services en Angular</h1>
+  <p class="subtitle">Los servicios permiten compartir datos y lógica entre componentes usando Inyección de Dependencias</p>
+  
+  <!-- Service Example -->
+  <section class="demo-section">
+    <h2>📋 Lista de Tareas (CRUD con Service)</h2>
+    
+    <!-- Add Task Form -->
+    <div class="add-task-form">
+      <input 
+        type="text" 
+        [(ngModel)]="newTaskTitle" 
+        placeholder="Nueva tarea..."
+        class="input"
+        (keyup.enter)="addTask()">
+      <button class="btn btn-primary" (click)="addTask()">
+        ➕ Agregar
+      </button>
+    </div>
+    
+    <!-- Task List -->
+    <ul class="task-list">
+      @for (task of taskService.tasks(); track task.id) {
+        <li class="task-item" [class.completed]="task.completed">
+          <label class="checkbox-container">
+            <input 
+              type="checkbox" 
+              [checked]="task.completed"
+              (change)="toggleTask(task)">
+            <span class="checkmark"></span>
+          </label>
+          <span class="task-title">{{ task.title }}</span>
+          <button class="btn-delete" (click)="deleteTask(task)">
+            🗑️
+          </button>
+        </li>
+      }
+    </ul>
+    
+    <!-- Stats -->
+    <div class="stats">
+      <span>Total: {{ taskService.tasks().length }}</span>
+      <span class="separator">|</span>
+      <span class="completed">Completadas: {{ taskService.getCompletedCount() }}</span>
+    </div>
+  </section>
+  
+  <!-- Code Explanation -->
+  <section class="demo-section code-section">
+    <h2>💻 Código del Service</h2>
+    <pre><code>// TaskService (inyectable en cualquier componente)
+// Usa signals para estado reactivo
+
+&#64;Injectable(&#123; providedIn: 'root' &#125;)
+export class TaskService &#123;
+  tasks = signal&lt;Task[]&gt;([...]);  // Estado reactivo
+  
+  addTask(title: string) &#123;
+    this.tasks.update(t => [...t, newTask]);
+  &#125;
+&#125;
+
+// En el componente (inyección automática)
+export class MyComponent &#123;
+  taskService = inject(TaskService);
+&#125;</code></pre>
+  </section>
+</div>

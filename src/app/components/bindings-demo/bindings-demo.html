@@ -1,0 +1,66 @@
+<div class="demo-container">
+  <h1>🔗 Bindings en Angular</h1>
+  
+  <!-- String Interpolation -->
+  <section class="demo-section">
+    <h2>1. String Interpolation <code>{{ '{{' }} title {{ '}}' }}</code></h2>
+    <p>El título es: <strong>{{ title }}</strong></p>
+    <p>Versión de Angular: <span class="badge">{{ version }}</span></p>
+  </section>
+  
+  <!-- Property Binding -->
+  <section class="demo-section">
+    <h2>2. Property Binding <code>[src]="imageUrl"</code></h2>
+    <div class="image-container">
+      <img [src]="imageUrl" alt="Angular Logo" width="80">
+    </div>
+    <button [disabled]="isDisabled" class="btn" (click)="toggleButton()">
+      {{ isDisabled ? 'Habilitado' : 'Deshabilitado' }}
+    </button>
+  </section>
+  
+  <!-- Event Binding -->
+  <section class="demo-section">
+    <h2>3. Event Binding <code>(click)</code></h2>
+    <button class="btn btn-primary" (click)="onButtonClick()">
+      ¡Haz clic aquí!
+    </button>
+    <p>Has hecho clic <strong>{{ clickCount() }}</strong> veces</p>
+  </section>
+  
+  <!-- Two-way Binding -->
+  <section class="demo-section">
+    <h2>4. Two-way Binding <code>[(ngModel)]</code></h2>
+    <div class="form-group">
+      <label for="name">Nombre:</label>
+      <input 
+        type="text" 
+        id="name" 
+        [(ngModel)]="userName" 
+        placeholder="Escribe tu nombre"
+        class="input">
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input 
+        type="email" 
+        id="email" 
+        [(ngModel)]="userEmail" 
+        placeholder="tu@email.com"
+        class="input">
+    </div>
+    @if (userName) {
+      <p class="result">
+        Hola, <strong>{{ userName }}</strong>! Tu email es <em>{{ userEmail || '---' }}</em>
+      </p>
+    }
+  </section>
+  
+  <!-- Style Binding -->
+  <section class="demo-section">
+    <h2>5. Style Binding <code>[style.color]</code></h2>
+    <p [style.color]="textColor">
+      Este texto cambia de color dinámicamente
+    </p>
+  </section>
+</div>
